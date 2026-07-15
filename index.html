@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ji.Pellizzari — Diseño de productos digitales</title>
+<meta name="description" content="Portafolio de Javiera Pellizzari, Product Designer especializada en UX/UI y Design Systems. Más de 8 años diseñando productos digitales para seguros, banca, retail y educación." />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ji-pellizzari.netlify.app/index.html" />
+<meta property="og:title" content="Ji.Pellizzari — Diseño de productos digitales" />
+<meta property="og:description" content="Portafolio de Javiera Pellizzari, Product Designer especializada en UX/UI y Design Systems. Más de 8 años diseñando productos digitales para seguros, banca, retail y educación." />
+<meta property="og:image" content="assets/og-image-es.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="es_CL" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ji.Pellizzari — Diseño de productos digitales" />
+<meta name="twitter:description" content="Portafolio de Javiera Pellizzari, Product Designer especializada en UX/UI y Design Systems." />
+<meta name="twitter:image" content="assets/og-image-es.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opt@0,400;0,500;1,400&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   DESIGN FOUNDATIONS v1.0  —  tokens
+   ============================================================ */
+:root{
+  /* Color · Primary Deep Plum */
+  --plum-500:#5B31E6;
+  --plum-600:#4B24D3;
+  --plum-700:#3C1BB0;
+  --plum-400:#8064EC; /* aclarado para ilustración */
+  --plum-300:#B3A4F3; /* fondo ilustración */
+  --plum-100:#ECE8FF;
+
+  /* Color · Secondary Muted Terracotta */
+  --terra-500:#C46A53;
+  --terra-600:#AE5B46;
+  --terra-400:#D08E7C; /* aclarado para ilustración / separadores */
+  --terra-300:#E0B3A6; /* fondo ilustración */
+  --terra-100:#F5E7E2;
+
+  /* Color · Neutral */
+  --gray-950:#201A2B;
+  --gray-900:#2A2436;
+  --gray-800:#3A3446;
+  --gray-700:#514B5E;
+  --gray-600:#686274;
+  --gray-500:#847E94;
+  --gray-400:#A5A0B2;
+  --gray-300:#C8C3D2;
+  --gray-200:#E4E0EA;
+  --gray-100:#F3F1F6;
+  --gray-50:#FBFAFD;
+
+  --bg:var(--gray-50);
+  --surface:#FFFFFF;
+
+  /* Spacing · sistema 8pt */
+  --s-4:4px;   --s-8:8px;   --s-16:16px; --s-24:24px; --s-32:32px;
+  --s-40:40px; --s-48:48px; --s-56:56px; --s-64:64px; --s-80:80px;
+  --s-96:96px; --s-120:120px; --s-160:160px;
+
+  /* Radius */
+  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-full:999px;
+
+  /* Grid */
+  --frame:1440px;
+  --margin:120px;
+  --gutter:32px;
+
+  /* Motion */
+  --dur-1:150ms; --dur-2:250ms; --dur-3:350ms;
+  --ease:cubic-bezier(.4,0,.2,1);
+
+  /* Shadows */
+  --elev-1:0 4px 12px rgba(32,26,43,.05);
+  --elev-2:0 8px 32px rgba(32,26,43,.08);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;}
+/* offset para que las anclas no queden bajo el nav fijo */
+section[id]{scroll-margin-top:88px;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--gray-950);
+  font-family:"Geist",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* Container: 1440 frame, 120 margin */
+.container{
+  max-width:var(--frame);
+  margin-inline:auto;
+  padding-inline:var(--margin);
+}
+
+/* ============================================================
+   NAVIGATION  (fija / sticky)
+   ============================================================ */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease),
+             background var(--dur-2) var(--ease);
+}
+/* estado al hacer scroll */
+.nav.is-scrolled{
+  border-bottom-color:var(--gray-200);
+  box-shadow:var(--elev-1);
+}
+.nav .container{
+  padding-block:var(--s-16);
+}
+.nav__inner{
+  display:flex;
+  align-items:center;
+  gap:var(--s-48);
+  min-height:56px;
+}
+.logo{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:24px;
+  letter-spacing:-.01em;
+  color:var(--gray-950);
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:baseline;
+}
+.logo__dot{
+  color:var(--terra-500);
+  font-size:60px;
+  line-height:0;
+  position:relative;
+  top:2px;
+  margin-left:-4px;
+  margin-right:3px;
+}
+
+.nav__menu{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:var(--s-40);
+}
+.nav__link{
+  position:relative;
+  font-size:16px;
+  font-weight:500;
+  color:var(--gray-950);
+  padding-bottom:var(--s-4);
+  transition:color var(--dur-1) var(--ease);
+}
+.nav__link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:100%;
+  height:2px;
+  background:var(--plum-500);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform var(--dur-2) var(--ease);
+}
+.nav__link:hover{color:var(--plum-500);}
+.nav__link.is-active{color:var(--plum-500);}
+.nav__link.is-active::after{transform:scaleX(1);}
+
+.nav__right{
+  display:flex;
+  align-items:center;
+  gap:var(--s-24);
+}
+
+/* Secondary button (outline) */
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-family:"Geist",sans-serif;
+  font-weight:500;
+  font-size:16px;
+  color:var(--plum-500);
+  background:var(--surface);
+  border:1px solid var(--plum-500);
+  border-radius:var(--r-full);
+  padding:var(--s-4) var(--s-24);
+  cursor:pointer;
+  transition:background var(--dur-2) var(--ease),
+             color var(--dur-2) var(--ease),
+             border-color var(--dur-2) var(--ease);
+}
+.btn-secondary:hover{
+  background:var(--plum-100);
+  border-color:var(--plum-600);
+  color:var(--plum-600);
+}
+
+/* ---- CV dropdown (PDF principal + Word secundario) ---- */
+.cv-dropdown{position:relative;display:inline-flex;}
+.cv-dropdown .btn-secondary{border-radius:var(--r-full) 0 0 var(--r-full);border-right:none;}
+.cv-dropdown__caret{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  background:var(--surface);
+  border:1px solid var(--plum-500);
+  border-radius:0 var(--r-full) var(--r-full) 0;
+  color:var(--plum-500);
+  cursor:pointer;
+  transition:background var(--dur-2) var(--ease),color var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease);
+}
+.cv-dropdown__caret:hover{background:var(--plum-100);border-color:var(--plum-600);color:var(--plum-600);}
+.cv-dropdown__caret svg{width:14px;height:14px;transition:transform var(--dur-2) var(--ease);}
+.cv-dropdown__caret.is-open svg{transform:rotate(180deg);}
+.cv-dropdown__menu{
+  display:none;
+  position:absolute;
+  top:calc(100% + var(--s-8));
+  right:0;
+  min-width:160px;
+  background:var(--surface);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-md);
+  box-shadow:var(--elev-2);
+  padding:var(--s-8);
+  z-index:50;
+}
+.cv-dropdown__menu.is-open{display:block;}
+.cv-dropdown__menu a{
+  display:flex;
+  align-items:center;
+  gap:var(--s-8);
+  padding:var(--s-8) var(--s-12);
+  font-size:14px;
+  font-weight:500;
+  color:var(--gray-800);
+  border-radius:var(--r-sm);
+  transition:background var(--dur-1) var(--ease);
+}
+.cv-dropdown__menu a:hover{background:var(--gray-100);}
+.cv-dropdown__menu a svg{width:16px;height:16px;color:var(--gray-400);}
+.btn-secondary svg{width:18px;height:18px;}
+
+.nav__lang{
+  display:flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-size:16px;
+  font-weight:500;
+  padding-left:var(--s-24);
+  border-left:1px solid var(--gray-200);
+}
+.nav__lang a{color:var(--gray-400);transition:color var(--dur-1) var(--ease);}
+.nav__lang a:hover{color:var(--gray-600);}
+
+/* ---- Menú hamburguesa (mobile/tablet) ---- */
+.nav__burger{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:44px;
+  height:44px;
+  padding:0;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--gray-950);
+}
+.nav__burger svg{width:24px;height:24px;}
+.nav__burger .icon-close{display:none;}
+.nav__burger.is-open .icon-menu{display:none;}
+.nav__burger.is-open .icon-close{display:block;}
+
+.nav__overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(32,26,43,0.4);
+  z-index:190;
+  opacity:0;
+  transition:opacity var(--dur-2) var(--ease);
+}
+.nav__overlay.is-open{display:block;opacity:1;}
+
+.nav__drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:40%;
+  min-width:240px;
+  max-width:420px;
+  background:var(--gray-50);
+  z-index:200;
+  padding:var(--s-32) var(--s-24);
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-32);
+  transform:translateX(100%);
+  transition:transform var(--dur-2) var(--ease);
+  box-shadow:var(--elev-3);
+  overflow-y:auto;
+}
+.nav__drawer.is-open{transform:translateX(0);}
+.nav__drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.nav__drawer-close{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--gray-600);
+}
+.nav__drawer-close svg{width:22px;height:22px;}
+.nav__drawer-menu{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-8);
+}
+.nav__drawer-menu a{
+  font-family:"Newsreader",serif;
+  font-size:24px;
+  font-weight:500;
+  color:var(--gray-950);
+  padding:var(--s-12) 0;
+  border-bottom:1px solid var(--gray-200);
+  transition:color var(--dur-1) var(--ease);
+}
+.nav__drawer-menu a:hover{color:var(--plum-500);}
+.nav__drawer-foot{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-16);
+}
+.nav__drawer-foot .btn-secondary{
+  width:100%;
+  justify-content:center;
+}
+.nav__drawer-lang{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--s-8);
+  font-size:16px;
+  font-weight:500;
+}
+.nav__drawer-lang a{color:var(--gray-400);}
+.nav__drawer-lang a.is-active{color:var(--gray-950);}
+
+.nav__lang a.is-active{color:var(--terra-500);}
+.nav__lang span{color:var(--gray-300);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding-top:var(--s-16);
+  padding-bottom:var(--s-120);
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--gutter);
+  align-items:center;
+}
+
+/* — Left column — */
+.hero__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:80px;          /* Display XL */
+  line-height:1.02;
+  letter-spacing:-.02em;
+  color:var(--gray-950);
+  margin:0;
+}
+.hero__title .accent{color:var(--plum-500);}
+
+.hero__lead{
+  max-width:584px;
+  margin-top:var(--s-32);
+  font-size:24px;          /* Body L */
+  line-height:1.5;
+  color:var(--gray-600);
+}
+
+.hero__chips{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--s-16);
+  margin-bottom:var(--s-24);
+}
+.chip{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--terra-500);
+}
+.chip__sep{color:var(--terra-100);}
+
+.hero__cta{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-16);
+  margin-top:var(--s-24);
+  font-family:"Geist",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:#fff;
+  background:var(--plum-500);
+  border:none;
+  border-radius:var(--r-full);
+  padding:var(--s-16) var(--s-32);
+  cursor:pointer;
+  box-shadow:var(--elev-1);
+  transition:background var(--dur-2) var(--ease),
+             transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease);
+}
+.hero__cta:hover{background:var(--plum-600);box-shadow:var(--elev-2);}
+.hero__cta:active{background:var(--plum-700);transform:translateY(1px);}
+.hero__cta svg{width:20px;height:20px;transition:transform var(--dur-2) var(--ease);}
+.hero__cta:hover svg{transform:translateX(4px);}
+
+/* — Right column: illustration — */
+.hero__art{
+  position:relative;
+  width:100%;
+  aspect-ratio:720/860;
+}
+.hero__art svg{width:100%;height:100%;overflow:visible;}
+
+/* ---- Animación de entrada del contenido del hero ---- */
+.hero__chips,
+.hero__title,
+.hero__lead,
+.hero__cta{
+  opacity:0;
+  animation:hero-in .6s var(--ease) forwards;
+}
+.hero__chips{animation-delay:.1s;}
+.hero__title{animation-delay:.2s;}
+.hero__lead {animation-delay:.32s;}
+.hero__cta  {animation-delay:.44s;}
+
+@keyframes hero-in{
+  from{opacity:0;transform:translateY(12px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+
+/* ---- Animación de entrada de la ilustración ---- */
+/* Trazos: se dibujan solos */
+.art-svg .stroke-anim{
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:draw 1.8s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+/* Grillas guía: fade suave */
+.art-svg .grid{
+  opacity:0;
+  animation:fade-grid .8s var(--ease) forwards;
+  animation-delay:.05s;
+}
+/* Rellenos (puntos, triángulo): aparecen de a poco */
+.art-svg .fade-anim{
+  opacity:0;
+  transform:translateY(8px);
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:fade-up .6s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+/* Nodos: fade suave (sin pop) */
+.art-svg .node{
+  opacity:0;
+  animation:fade-node .6s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+
+@keyframes draw{to{stroke-dashoffset:0;}}
+@keyframes fade-grid{to{opacity:1;}}
+@keyframes fade-up{to{opacity:1;transform:translateY(0);}}
+@keyframes fade-node{to{opacity:1;}}
+
+/* ============================================================
+   ELEMENTOS COMPARTIDOS DE SECCIÓN
+   ============================================================ */
+.section{padding-block:var(--s-120);}
+.section--tight{padding-block:var(--s-96);}
+
+.section__head{max-width:920px;margin-bottom:var(--s-80);}
+.section__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:64px;          /* Display L */
+  line-height:1.05;
+  letter-spacing:-.02em;
+  color:var(--gray-950);
+  margin:0;
+}
+.section__title--xl{font-size:80px;}
+.section__eyebrow{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--terra-500);
+  margin:0 0 var(--s-12);
+}
+.section__intro{
+  margin-top:var(--s-24);
+  max-width:900px;
+  font-size:18px;          /* Body M */
+  line-height:1.6;
+  color:var(--gray-600);
+}
+
+/* Chips reutilizables (misma definición del hero) */
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-16);}
+.chips .chip__sep{color:var(--terra-100);}
+
+/* Botón ghost terracota (secundario) */
+.btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-family:"Geist",sans-serif;
+  font-weight:500;
+  font-size:16px;
+  letter-spacing:.3px;
+  color:var(--terra-500);
+  background:transparent;
+  border:none;
+  padding:var(--s-8) 0;
+  cursor:pointer;
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.btn-ghost svg{width:18px;height:18px;transition:transform var(--dur-2) var(--ease);}
+.btn-ghost:hover{color:var(--terra-600);gap:var(--s-16);}
+.btn-ghost:hover svg{transform:translateX(3px);}
+.btn-ghost:active{color:var(--terra-500);}
+
+/* Botón primario reutilizable (mismo que hero) */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-16);
+  font-family:"Geist",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:#fff;
+  background:var(--plum-500);
+  border:none;
+  border-radius:var(--r-full);
+  padding:var(--s-16) var(--s-32);
+  cursor:pointer;
+  box-shadow:var(--elev-1);
+  transition:background var(--dur-2) var(--ease),
+             transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease);
+}
+.btn-primary svg{width:20px;height:20px;transition:transform var(--dur-2) var(--ease);}
+.btn-primary:hover{background:var(--plum-600);box-shadow:var(--elev-2);}
+.btn-primary:hover svg{transform:translateX(4px);}
+.btn-primary:active{background:var(--plum-700);transform:translateY(1px);}
+
+/* ============================================================
+   SECCIÓN · CÓMO TRABAJO  (horizontal, sin números)
+   ============================================================ */
+.work__grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--gutter);
+}
+.work__item{
+  padding-top:0;
+}
+.work__icon{
+  display:grid;
+  place-items:center;
+  width:56px;height:56px;
+  border-radius:var(--r-md);
+  background:var(--plum-100);
+  color:var(--plum-600);
+  margin-bottom:var(--s-24);
+}
+.work__icon svg{width:28px;height:28px;}
+.work__lead{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:24px;          /* Heading M editorial */
+  line-height:1.2;
+  color:var(--gray-950);
+  margin:0 0 var(--s-16);
+}
+.work__desc{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0;
+}
+
+/* ============================================================
+   SECCIÓN · EXPERIENCIA  (timeline)
+   ============================================================ */
+.exp__list{position:relative;}
+/* línea vertical del timeline */
+.exp__list::before{
+  content:"";
+  position:absolute;
+  left:7px;
+  top:10px;
+  bottom:10px;
+  width:2px;
+  background:var(--gray-200);
+}
+.exp__item{
+  position:relative;
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr) 240px;
+  gap:var(--s-48);
+  padding:var(--s-56) 0;
+  padding-left:var(--s-48);
+}
+/* separador que arranca después de la línea de tiempo (no la cruza) */
+.exp__item + .exp__item::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:var(--s-48);
+  right:0;
+  height:1px;
+  background:var(--gray-200);
+}
+.exp__item:first-child{padding-top:var(--s-24);}
+/* nodo del timeline */
+.exp__item::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:calc(var(--s-56) + 8px);
+  width:16px;height:16px;
+  border-radius:var(--r-full);
+  background:var(--plum-500);
+  box-shadow:0 0 0 4px var(--bg);
+}
+.exp__item:first-child::before{top:calc(var(--s-24) + 8px);}
+
+.exp__period{
+  font-size:16px;
+  font-weight:500;
+  letter-spacing:.5px;
+  color:var(--terra-500);
+  padding-top:4px;
+}
+/* Rol = título protagonista */
+.exp__role{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:28px;
+  line-height:1.15;
+  letter-spacing:-.01em;
+  color:var(--plum-500);
+  margin:0 0 var(--s-4);
+}
+/* Empresa = secundaria, oscura para diferenciar */
+.exp__company{
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.3px;
+  color:var(--gray-900);
+  margin:0 0 var(--s-24);
+}
+.exp__desc{
+  font-size:18px;
+  line-height:1.6;
+  color:var(--gray-700);
+  margin:0 0 var(--s-24);
+}
+/* Qué aprendí = nota secundaria, debajo de la descripción, en una línea */
+.exp__learn{
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-weight:400;
+  font-size:20px;
+  line-height:1.3;
+  color:var(--gray-600);
+  margin:0;
+}
+.exp__aside{padding-top:4px;}
+.exp__chips{display:flex;flex-direction:column;gap:var(--s-8);align-items:flex-start;margin-bottom:var(--s-24);}
+.exp__tools{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0;
+}
+.exp__tools span{color:var(--gray-800);font-weight:600;}
+
+/* ============================================================
+   SECCIÓN · PROYECTOS
+   ============================================================ */
+.proj__tabs{
+  display:flex;
+  gap:var(--s-8);
+  margin-bottom:var(--s-56);
+  border-bottom:1px solid var(--gray-200);
+}
+.proj__tab{
+  font-family:"Geist",sans-serif;
+  font-size:18px;
+  font-weight:500;
+  color:var(--gray-600);
+  background:none;
+  border:none;
+  padding:var(--s-16) var(--s-24);
+  margin-bottom:-1px;
+  border-bottom:2px solid transparent;
+  cursor:pointer;
+  transition:color var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease);
+}
+.proj__tab:hover{color:var(--gray-800);}
+.proj__tab.is-active{color:var(--plum-500);border-bottom-color:var(--plum-500);}
+
+.proj__grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--gutter);
+}
+.proj__panel{display:none;}
+.proj__panel.is-active{display:block;}
+
+.proj-card{
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:var(--elev-1);
+  transition:transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease),
+             border-color var(--dur-2) var(--ease);
+}
+.proj-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--elev-2);
+  border-color:var(--plum-400);
+}
+.proj-card:active{transform:translateY(-2px);}
+.proj-card__media{
+  aspect-ratio:4/3;
+  background:var(--gray-100);
+  overflow:hidden;
+}
+.proj-card__media img{width:100%;height:100%;object-fit:cover;display:block;}
+.proj-card__body{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:var(--s-32);
+}
+.proj-card__eyebrow{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--terra-500);
+  margin:0 0 var(--s-16);
+}
+.proj-card__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:32px;
+  line-height:1.1;
+  color:var(--gray-950);
+  margin:0 0 var(--s-16);
+}
+.proj-card__desc{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0 0 var(--s-24);
+  flex:1;
+}
+.proj-card__cta{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-weight:500;
+  font-size:16px;
+  color:var(--terra-500);
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.proj-card__cta svg{width:18px;height:18px;transition:transform var(--dur-2) var(--ease);}
+.proj-card:hover .proj-card__cta{color:var(--terra-600);gap:var(--s-16);}
+.proj-card:hover .proj-card__cta svg{transform:translateX(3px);}
+
+/* ============================================================
+   SECCIÓN · CONTACTO
+   ============================================================ */
+.contact__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--s-96);
+  align-items:center;
+}
+.contact__intro .contact__rule{margin-bottom:0;}
+.contact__rule{
+  width:56px;height:3px;
+  background:var(--terra-500);
+  margin:var(--s-32) 0 var(--s-40);
+  border:none;
+}
+.contact__statement{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:40px;
+  line-height:1.2;
+  color:var(--gray-950);
+  margin:0;
+}
+.contact__methods{display:flex;flex-direction:column;}
+.contact__method{
+  display:flex;
+  align-items:center;
+  gap:var(--s-24);
+  padding:var(--s-32) 0;
+  border-top:1px solid var(--gray-200);
+  text-decoration:none;
+  color:inherit;
+  transition:transform var(--dur-2) var(--ease);
+}
+.contact__method:first-child{border-top:none;padding-top:0;}
+.contact__method:hover{transform:translateX(4px);}
+.contact__icon{
+  flex:none;
+  width:64px;height:64px;
+  border-radius:var(--r-full);
+  background:var(--plum-100);
+  display:grid;place-items:center;
+  color:var(--plum-600);
+  transition:background var(--dur-2) var(--ease);
+}
+.contact__icon svg{width:26px;height:26px;}
+.contact__method:hover .contact__icon{background:var(--plum-500);color:#fff;}
+.contact__label{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--plum-500);
+  margin:0 0 var(--s-4);
+}
+.contact__value{
+  font-size:20px;
+  color:var(--gray-800);
+  margin:0;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{
+  background:var(--plum-100);
+  padding-block:var(--s-64);
+}
+.footer__inner{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:var(--s-64);
+  align-items:start;
+}
+.footer__logo{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:24px;
+  color:var(--gray-950);
+  display:inline-flex;
+  align-items:baseline;
+  margin-bottom:var(--s-16);
+}
+.footer__logo .logo__dot{font-size:56px;margin-left:-4px;margin-right:3px;}
+.footer__role{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0;
+}
+.footer__copy{
+  font-size:14px;
+  color:var(--gray-600);
+  margin:var(--s-24) 0 0;
+}
+.footer__nav{display:flex;flex-direction:column;gap:var(--s-16);}
+.footer__nav a{
+  font-size:16px;
+  color:var(--gray-700);
+  transition:color var(--dur-1) var(--ease);
+}
+.footer__nav a:hover{color:var(--plum-500);}
+.footer__social{display:flex;gap:var(--s-16);}
+.footer__social a{
+  width:44px;height:44px;
+  border-radius:var(--r-full);
+  display:grid;place-items:center;
+  color:var(--plum-600);
+  background:var(--surface);
+  transition:background var(--dur-2) var(--ease),color var(--dur-2) var(--ease);
+}
+.footer__social a:hover{background:var(--plum-500);color:#fff;}
+.footer__social svg{width:20px;height:20px;}
+
+/* ============================================================
+   BOTÓN ANCLA · volver arriba
+   ============================================================ */
+.to-top{
+  position:fixed;
+  right:var(--s-40);
+  bottom:var(--s-40);
+  z-index:90;
+  width:52px;height:52px;
+  border-radius:var(--r-full);
+  background:var(--plum-500);
+  color:#fff;
+  border:none;
+  display:grid;place-items:center;
+  cursor:pointer;
+  box-shadow:var(--elev-2);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(16px);
+  transition:opacity var(--dur-3) var(--ease),
+             transform var(--dur-3) var(--ease),
+             visibility var(--dur-3) var(--ease),
+             background var(--dur-2) var(--ease);
+}
+.to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0);}
+.to-top:hover{background:var(--plum-600);}
+.to-top:active{background:var(--plum-700);}
+.to-top svg{width:22px;height:22px;}
+
+/* ============================================================
+   FOOTER / SECCIONES · REVEAL AL HACER SCROLL
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+.reveal.is-in{opacity:1;transform:translateY(0);}
+
+/* ============================================================
+   FOCUS / MOTION
+   ============================================================ */
+:focus-visible{
+  outline:2px solid var(--plum-500);
+  outline-offset:3px;
+  border-radius:var(--r-sm);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  /* Contenido del hero visible sin animar */
+  .hero__chips,.hero__title,.hero__lead,.hero__cta{opacity:1;transform:none;}
+  /* Reveal visible sin animar */
+  .reveal{opacity:1;transform:none;}
+  /* Ilustración visible en su estado final, sin animar */
+  .art-svg .stroke-anim{stroke-dashoffset:0;}
+  .art-svg .grid{opacity:1;}
+  .art-svg .fade-anim{opacity:1;transform:none;}
+  .art-svg .node{opacity:1;transform:none;}
+}
+
+/* ============================================================
+   RESPONSIVE  (Desktop First)
+   ============================================================ */
+
+/* Desktop 1280 */
+@media (max-width:1439px){
+  :root{--margin:80px;}
+  .hero__title{font-size:72px;}
+}
+
+/* Laptop 1024 */
+@media (max-width:1279px){
+  .hero__title{font-size:64px;} /* Display L */
+  .nav__menu{gap:var(--s-32);}
+  .work__grid{grid-template-columns:repeat(2,1fr);gap:var(--s-48) var(--gutter);}
+  .exp__item{grid-template-columns:130px minmax(0,1fr) 220px;gap:var(--s-32);}
+  .proj__grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* Tablet 768 */
+@media (max-width:1023px){
+  :root{--margin:48px;}
+  .hero__grid{
+    grid-template-columns:1fr;
+    gap:var(--s-64);
+  }
+  .hero__title{font-size:64px;}
+  .hero__lead{max-width:40ch;font-size:24px;}
+  .hero__art{max-width:520px;margin-inline:auto;}
+  .nav__menu{display:none;}
+  .nav__right .btn-secondary,
+  .nav__right .nav__lang{display:none;}
+  .nav__burger{display:flex;}
+  .section{padding-block:var(--s-96);}
+  .section--tight{padding-block:var(--s-80);}
+  .section__head{margin-bottom:var(--s-56);}
+  .section__title{font-size:56px;}
+  .section__title--xl{font-size:64px;}
+  /* Experiencia: apilar */
+  .exp__list::before{display:none;}
+  .exp__item{
+    grid-template-columns:1fr;
+    gap:var(--s-16);
+    padding-left:0;
+  }
+  .exp__item::before{display:none;}
+  .exp__item + .exp__item::after{left:0;}
+  .exp__chips{flex-direction:row;flex-wrap:wrap;}
+  .exp__period{font-size:14px;}
+  /* Contacto: apilar */
+  .contact__grid{grid-template-columns:1fr;gap:var(--s-56);}
+  .contact__statement{font-size:32px;}
+  /* Footer */
+  .footer__inner{grid-template-columns:1fr;gap:var(--s-40);}
+}
+
+/* Mobile 390 */
+@media (max-width:767px){
+  :root{--margin:24px;}
+  .nav__inner{gap:var(--s-16);}
+  .nav__lang{padding-left:var(--s-16);}
+  .btn-secondary{padding:var(--s-4) var(--s-16);font-size:14px;}
+  .hero{padding-top:var(--s-56);padding-bottom:var(--s-80);}
+  .hero__title{font-size:48px;}  /* Display S */
+  .hero__lead{font-size:18px;margin-top:var(--s-24);}
+  .hero__chips{gap:var(--s-8) var(--s-16);margin-bottom:var(--s-16);}
+  .hero__cta{width:100%;justify-content:center;}
+  .section__title{font-size:44px;}
+  .section__title--xl{font-size:48px;}
+  .work__grid{grid-template-columns:1fr;}
+  .proj__grid{grid-template-columns:1fr;}
+  .proj__tabs{gap:0;overflow-x:auto;}
+  .proj__tab{padding:var(--s-16);font-size:16px;white-space:nowrap;}
+  .contact__statement{font-size:28px;}
+  .contact__method{gap:var(--s-16);}
+  .contact__icon{width:52px;height:52px;}
+  .contact__value{font-size:16px;word-break:break-word;}
+  .to-top{right:var(--s-24);bottom:var(--s-24);}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="container">
+    <div class="nav__inner">
+      <a class="logo" href="#" aria-label="Ji.Pellizzari, inicio">Ji<span class="logo__dot">.</span>Pellizzari</a>
+
+      <nav class="nav__menu" aria-label="Principal">
+        <a class="nav__link" href="#experiencia">Experiencia</a>
+        <a class="nav__link" href="#proyectos">Proyectos</a>
+        <a class="nav__link" href="#como-trabajo">Cómo trabajo</a>
+        <a class="nav__link" href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="nav__right">
+        <div class="cv-dropdown">
+          <a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_ES.pdf" download="CV Javiera Pellizzari - Product Designer.pdf">
+            CV
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/>
+            </svg>
+          </a>
+          <button class="cv-dropdown__caret" id="cvCaret" type="button" aria-label="Otros formatos de CV" aria-expanded="false" aria-controls="cvMenu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="cv-dropdown__menu" id="cvMenu">
+            <a href="assets/CV_Javiera_Pellizzari_ES.pdf" download="CV Javiera Pellizzari - Product Designer.pdf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
+              CV en PDF
+            </a>
+            <a href="assets/CV_Javiera_Pellizzari_ES.docx" download="CV Javiera Pellizzari - Product Designer.docx">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>
+              CV en Word
+            </a>
+          </div>
+        </div>
+        <div class="nav__lang">
+          <a href="index-en.html" aria-label="English">EN</a>
+          <span>|</span>
+          <a href="#" class="is-active" aria-current="true" aria-label="Español">ES</a>
+        </div>
+        <button class="nav__burger" id="navBurger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDrawer">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav__overlay" id="navOverlay"></div>
+<aside class="nav__drawer" id="navDrawer" aria-label="Menú de navegación">
+  <div class="nav__drawer-head">
+    <button class="nav__drawer-close" id="navDrawerClose" type="button" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="nav__drawer-menu" aria-label="Secciones">
+    <a href="#experiencia">Experiencia</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#como-trabajo">Cómo trabajo</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <div class="nav__drawer-foot">
+    <a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_ES.pdf" download="CV Javiera Pellizzari - Product Designer.pdf">
+      CV en PDF
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/>
+      </svg>
+    </a>
+    <a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_ES.docx" download="CV Javiera Pellizzari - Product Designer.docx" style="background:none;">
+      CV en Word
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/>
+      </svg>
+    </a>
+    <div class="nav__drawer-lang">
+      <a href="index-en.html" aria-label="English">EN</a>
+      <span>|</span>
+      <a href="#" class="is-active" aria-current="true" aria-label="Español">ES</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ===================== HERO ===================== -->
+<main>
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero__grid">
+
+        <!-- Columna izquierda -->
+        <div class="hero__content">
+          <div class="hero__chips">
+            <span class="chip">Product Design</span>
+            <span class="chip__sep">|</span>
+            <span class="chip">Design Systems</span>
+            <span class="chip__sep">|</span>
+            <span class="chip">Liderazgo</span>
+            <span class="chip__sep">|</span>
+            <span class="chip">Agilidad</span>
+          </div>
+
+          <h1 class="hero__title">Diseño<br>productos<br><span class="accent">digitales.</span></h1>
+
+          <p class="hero__lead">
+            En los últimos años me he especializado en crear y mantener
+            sistemas de diseño que ayudan a los equipos a trabajar con mayor
+            consistencia, claridad y colaboración.
+          </p>
+
+          <a class="hero__cta" href="#proyectos">
+            Ver proyectos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Columna derecha: ilustración arquitectónica -->
+        <div class="hero__art" aria-hidden="true">
+          <svg class="art-svg" viewBox="0 0 720 860" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="2" fill="var(--plum-300)"/>
+              </pattern>
+            </defs>
+
+            <!-- ===== GRILLAS GUÍA (tenues) ===== -->
+            <g class="grid" stroke="var(--gray-200)" stroke-width="1">
+              <line x1="40"  y1="0" x2="40"  y2="860"/>
+              <line x1="230" y1="0" x2="230" y2="860"/>
+              <line x1="470" y1="0" x2="470" y2="860"/>
+              <line x1="0" y1="150" x2="720" y2="150"/>
+              <line x1="0" y1="470" x2="720" y2="470"/>
+              <line x1="0" y1="640" x2="720" y2="640"/>
+            </g>
+            <g class="grid" stroke="var(--plum-400)" stroke-width="1" stroke-dasharray="2 6" opacity="0.55">
+              <line x1="360" y1="0" x2="360" y2="860"/>
+              <line x1="640" y1="80" x2="640" y2="860"/>
+              <line x1="120" y1="150" x2="720" y2="150"/>
+            </g>
+
+            <!-- ===== CÍRCULO GRANDE DE COMPÁS ===== -->
+            <circle class="stroke-anim" style="--d:.15s" cx="500" cy="330" r="270"
+                    fill="none" stroke="var(--plum-400)" stroke-width="1.4"/>
+
+            <!-- ===== RECTÁNGULO TERRACOTA VERTICAL (con divisiones) ===== -->
+            <g class="stroke-anim" style="--d:.25s" stroke="var(--terra-400)" stroke-width="1.6" fill="none">
+              <rect x="40" y="150" width="80" height="290"/>
+              <line x1="40" y1="215" x2="120" y2="215"/>
+              <line x1="80" y1="150" x2="80" y2="440"/>
+            </g>
+
+            <!-- ===== MÓDULO SUPERIOR (peine vertical) ===== -->
+            <g class="stroke-anim" style="--d:.35s" stroke="var(--plum-300)" stroke-width="1.3" fill="none">
+              <rect x="500" y="120" width="130" height="185"/>
+              <line x1="520" y1="120" x2="520" y2="305"/>
+              <line x1="540" y1="120" x2="540" y2="305"/>
+              <line x1="560" y1="120" x2="560" y2="305"/>
+              <line x1="580" y1="120" x2="580" y2="305"/>
+              <line x1="600" y1="120" x2="600" y2="305"/>
+              <line x1="620" y1="120" x2="620" y2="305"/>
+            </g>
+            <!-- Línea terracota que cruza el módulo superior -->
+            <line class="stroke-anim" style="--d:.4s" x1="512" y1="120" x2="512" y2="305"
+                  stroke="var(--terra-400)" stroke-width="1.8"/>
+
+            <!-- ===== CÍRCULO MEDIANO SUELTO ===== -->
+            <circle class="stroke-anim" style="--d:.5s" cx="320" cy="360" r="58"
+                    fill="none" stroke="var(--plum-400)" stroke-width="1.4"/>
+
+            <!-- ===== MÓDULO DERECHO (divisiones horizontales) ===== -->
+            <g class="stroke-anim" style="--d:.55s" stroke="var(--plum-300)" stroke-width="1.3" fill="none">
+              <rect x="560" y="360" width="120" height="150"/>
+              <line x1="560" y1="398" x2="680" y2="398"/>
+              <line x1="560" y1="435" x2="680" y2="435"/>
+              <line x1="560" y1="472" x2="680" y2="472"/>
+            </g>
+
+            <!-- ===== ARCO TERRACOTA (abajo-izquierda) ===== -->
+            <g class="stroke-anim" style="--d:.65s" stroke="var(--terra-400)" stroke-width="1.6" fill="none">
+              <path d="M300 640 L300 545 A75 75 0 0 1 450 545 L450 640"/>
+              <line x1="300" y1="700" x2="450" y2="700"/>
+              <path d="M300 640 L300 860 M450 640 L450 860"/>
+            </g>
+
+            <!-- ===== ZONA DE PUNTOS ===== -->
+            <rect class="fade-anim" style="--d:1.5s" x="470" y="660" width="110" height="200" fill="url(#dots)"/>
+            <rect class="fade-anim" style="--d:1.65s"  x="600" y="660" width="120" height="200" fill="url(#dots)"/>
+
+            <!-- ===== PEINE VERTICAL LARGO (abajo-derecha) ===== -->
+            <g class="stroke-anim" style="--d:.8s" stroke="var(--plum-300)" stroke-width="1.1">
+              <line x1="600" y1="510" x2="600" y2="640"/>
+              <line x1="620" y1="510" x2="620" y2="640"/>
+              <line x1="640" y1="510" x2="640" y2="640"/>
+              <line x1="660" y1="510" x2="660" y2="640"/>
+              <line x1="680" y1="510" x2="680" y2="640"/>
+            </g>
+
+            <!-- ===== CUADRO CON X ===== -->
+            <g class="stroke-anim" style="--d:.9s" stroke="var(--gray-400)" stroke-width="1.3" fill="none">
+              <rect x="300" y="740" width="110" height="110"/>
+              <line x1="300" y1="740" x2="410" y2="850"/>
+              <line x1="410" y1="740" x2="300" y2="850"/>
+            </g>
+
+            <!-- ===== TRIÁNGULO TERRACOTA RELLENO ===== -->
+            <path class="fade-anim" style="--d:1.35s" d="M660 590 L695 590 L695 625 Z" fill="var(--terra-400)"/>
+
+            <!-- ===== NODOS / PUNTOS DE INTERSECCIÓN ===== -->
+            <circle class="node" style="--d:1.9s" cx="360" cy="150" r="7" fill="var(--plum-700)"/>
+            <circle class="node" style="--d:2.0s" cx="230" cy="640" r="7" fill="var(--plum-700)"/>
+            <circle class="node" style="--d:2.1s" cx="640" cy="150" r="6" fill="var(--terra-500)"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCIA ===================== -->
+  <section class="section" id="experiencia">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title section__title--xl">Experiencia</h2>
+        <p class="section__intro">Durante los últimos años mi trabajo ha evolucionado desde el diseño de interfaces hacia la construcción de sistemas de diseño, procesos y colaboración entre equipos.</p>
+      </div>
+
+      <div class="exp__list">
+        <article class="exp__item reveal">
+          <div class="exp__period">2020 — 2024</div>
+          <div class="exp__body">
+            <h3 class="exp__role">UI Designer → UI Lead</h3>
+            <p class="exp__company">BICE Vida</p>
+            <p class="exp__desc">Participé durante 4 años en la transformación digital de la compañía. Comencé en células diseñando productos end to end y terminé liderando la evolución del Design System y la consolidación del trabajo de un equipo de UI Designers.</p>
+            <p class="exp__learn">Aprendí a construir un sistema de diseño que pudiera escalar.</p>
+          </div>
+          <div class="exp__aside">
+            <div class="exp__chips chips">
+              <span class="chip">Product Design</span>
+              <span class="chip">Design System</span>
+              <span class="chip">Design Sprints</span>
+              <span class="chip">Leadership</span>
+            </div>
+            <p class="exp__tools"><span>Herramientas:</span> Figma, Figjam, Jira, Confluence, Mural, Teams, Hotjar</p>
+          </div>
+        </article>
+
+        <article class="exp__item reveal">
+          <div class="exp__period">2025</div>
+          <div class="exp__body">
+            <h3 class="exp__role">Product Designer · Design System Manager</h3>
+            <p class="exp__company">Equals — App BIM</p>
+            <p class="exp__desc">Participé en el rediseño completo de la App BIM (billetera digital peruana), liderando la creación del sistema de diseño y diseñando el flujo de envío de dinero de la app.</p>
+            <p class="exp__learn">Aprendí a unificar el trabajo de distintos equipos de diseño.</p>
+          </div>
+          <div class="exp__aside">
+            <div class="exp__chips chips">
+              <span class="chip">Product Design</span>
+              <span class="chip">Design System</span>
+              <span class="chip">App</span>
+              <span class="chip">Mobile</span>
+            </div>
+            <p class="exp__tools"><span>Herramientas:</span> Figma, Figjam, Miró, Google Suite</p>
+          </div>
+        </article>
+
+        <article class="exp__item reveal">
+          <div class="exp__period">2026</div>
+          <div class="exp__body">
+            <h3 class="exp__role">Senior UI Designer · Design System Manager</h3>
+            <p class="exp__company">Retorna</p>
+            <p class="exp__desc">Ingresé para crear las bases del sistema de diseño, estandarizar procesos y acompañar la evolución del producto.</p>
+            <p class="exp__learn">Aprendí a crear estructura antes de empezar a diseñar.</p>
+          </div>
+          <div class="exp__aside">
+            <div class="exp__chips chips">
+              <span class="chip">Design Systems</span>
+              <span class="chip">Design Ops</span>
+              <span class="chip">Research</span>
+              <span class="chip">Mentorías</span>
+            </div>
+            <p class="exp__tools"><span>Herramientas:</span> Figma, Figjam, Slack, Claude, Confluence, Notion, Condens</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROYECTOS ===================== -->
+  <section class="section" id="proyectos">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title section__title--xl">Proyectos</h2>
+        <p class="section__intro">Estos proyectos representan distintas etapas de mi experiencia, desde la creación de productos digitales hasta la construcción de sistemas de diseño para equipos multidisciplinarios.</p>
+      </div>
+
+      <div class="proj__tabs reveal" role="tablist">
+        <button class="proj__tab is-active" role="tab" aria-selected="true" data-panel="product-design">Product Design</button>
+        <button class="proj__tab" role="tab" aria-selected="false" data-panel="design-systems">Design Systems</button>
+      </div>
+
+      <!-- Panel: Product Design -->
+      <div class="proj__panel is-active" data-panel="product-design">
+        <div class="proj__grid">
+          <a class="proj-card reveal" href="proyecto-envio-bim.html" aria-label="Ver proyecto: Envío de Dinero · App BIM">
+            <div class="proj-card__media"><img src="assets/proyecto-envio-dinero-bim.jpg" alt="Flujo de envío de dinero App BIM" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Product Design</p>
+              <h3 class="proj-card__title">Envío de Dinero · App BIM</h3>
+              <p class="proj-card__desc">Flujo de envío de dinero de la App BIM, desde su construcción como wireframes hasta diseño de alta fidelidad junto al Design System.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <a class="proj-card reveal" href="proyecto-viaje.html" aria-label="Ver proyecto: Viaje Protegido">
+            <div class="proj-card__media"><img src="assets/proyecto-viaje-protegido.jpg" alt="Flujo de seguro de viaje" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Product Design</p>
+              <h3 class="proj-card__title">Viaje Protegido</h3>
+              <p class="proj-card__desc">Diseñé el flujo completo para la contratación de un seguro de viajes, desde la cotización hasta la confirmación, mejorando la claridad y confianza en cada paso del proceso.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <a class="proj-card reveal" href="proyecto-app-bice.html" aria-label="Ver proyecto: App BICE Vida">
+            <div class="proj-card__media"><img src="assets/proyecto-app-bice-vida.jpg" alt="App de reembolsos BICE Vida" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Product Design</p>
+              <h3 class="proj-card__title">App BICE Vida</h3>
+              <p class="proj-card__desc">Diseñé el flujo de reembolsos en la app, reduciendo pasos y mejorando la comprensión del estado de cada solicitud.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Panel: Design Systems -->
+      <div class="proj__panel" data-panel="design-systems">
+        <div class="proj__grid">
+          <a class="proj-card reveal" href="proyecto.html" aria-label="Ver proyecto: BICE Vida">
+            <div class="proj-card__media"><img src="assets/proyecto-bice-vida.jpg" alt="Design System de BICE Vida" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Design System</p>
+              <h3 class="proj-card__title">BICE Vida</h3>
+              <p class="proj-card__desc">Lideré la evolución del Design System corporativo, definiendo componentes, documentación, procesos y colaboración entre Diseño y Desarrollo.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <a class="proj-card reveal" href="proyecto-bim.html" aria-label="Ver proyecto: BIM">
+            <div class="proj-card__media"><img src="assets/proyecto-bim.jpg" alt="Sistema de diseño de BIM" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Design System · Mobile</p>
+              <h3 class="proj-card__title">BIM</h3>
+              <p class="proj-card__desc">Diseñé el sistema de diseño de la aplicación móvil y establecí las bases visuales compartidas entre varios Product Designers.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <a class="proj-card reveal" href="proyecto-retorna.html" aria-label="Ver proyecto: Retorna">
+            <div class="proj-card__media"><img src="assets/proyecto-retorna.jpg" alt="Sistema de diseño de Retorna" loading="lazy"></div>
+            <div class="proj-card__body">
+              <p class="proj-card__eyebrow">Design System · DesignOps</p>
+              <h3 class="proj-card__title">Retorna</h3>
+              <p class="proj-card__desc">Construí las bases del sistema de diseño, procesos de DesignOps y nuevas formas de colaboración entre Producto, Desarrollo y Growth.</p>
+              <span class="proj-card__cta">Ver proyecto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CÓMO TRABAJO ===================== -->
+  <section class="section section--tight" id="como-trabajo">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="section__eyebrow">Cómo trabajo</p>
+        <h2 class="section__title">Algunas ideas que guían mi trabajo.</h2>
+      </div>
+      <div class="work__grid">
+        <div class="work__item reveal">
+          <span class="work__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+          </span>
+          <p class="work__lead">Los sistemas aparecen cuando un producto empieza a crecer.</p>
+          <p class="work__desc">Un sistema de diseño no es el punto de partida de un producto. Normalmente aparece cuando distintas personas necesitan trabajar con mayor consistencia y empiezan a compartir decisiones.</p>
+        </div>
+        <div class="work__item reveal">
+          <span class="work__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+          </span>
+          <p class="work__lead">Documentar también es diseñar.</p>
+          <p class="work__desc">La documentación no existe para llenar páginas. Existe para que otras personas puedan entender el porqué de una decisión y reutilizar ese conocimiento.</p>
+        </div>
+        <div class="work__item reveal">
+          <span class="work__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <p class="work__lead">Las mejores decisiones suelen ser compartidas.</p>
+          <p class="work__desc">Me gusta trabajar cerca de desarrollo, producto y research porque muchas de las decisiones importantes aparecen cuando distintas miradas participan desde el principio.</p>
+        </div>
+        <div class="work__item reveal">
+          <span class="work__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="m6.4 6.4 2.8 2.8"/><path d="M2 12h4"/><path d="M12 12l7 7"/><circle cx="12" cy="12" r="2.5"/><path d="M17.6 6.4 14.8 9.2"/></svg>
+          </span>
+          <p class="work__lead">No todo se resuelve creando un componente.</p>
+          <p class="work__desc">Muchas veces el problema está en los procesos, en la comunicación entre equipos o en cómo se toman las decisiones. Diseñar también significa ayudar a resolver esas fricciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACTO ===================== -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="reveal contact__intro">
+          <h2 class="section__title section__title--xl">Contacto</h2>
+          <hr class="contact__rule">
+        </div>
+
+        <div class="contact__methods reveal">
+          <a class="contact__method" href="mailto:javiera.pellizzari@gmail.com">
+            <span class="contact__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <span>
+              <span class="contact__label">Email</span>
+              <p class="contact__value">javiera.pellizzari@gmail.com</p>
+            </span>
+          </a>
+          <a class="contact__method" href="https://linkedin.com/in/javierapellizzari" target="_blank" rel="noopener">
+            <span class="contact__icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4-.02 2 2 0 0 1 4 .02zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/></svg>
+            </span>
+            <span>
+              <span class="contact__label">LinkedIn</span>
+              <p class="contact__value">linkedin.com/in/javierapellizzari</p>
+            </span>
+          </a>
+          <div class="contact__method">
+            <span class="contact__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+            </span>
+            <span>
+              <span class="contact__label">Ubicación</span>
+              <p class="contact__value">Santiago, Chile</p>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <span class="footer__logo">Ji<span class="logo__dot">.</span>Pellizzari</span>
+        <p class="footer__role">Design Systems Manager<br>Product Designer</p>
+        <p class="footer__copy">© 2026 Todos los derechos reservados.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Pie de página">
+        <a href="#como-trabajo">Cómo trabajo</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <div class="footer__social">
+        <a href="https://linkedin.com/in/javierapellizzari" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4-.02 2 2 0 0 1 4 .02zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/></svg>
+        </a>
+        <a href="mailto:javiera.pellizzari@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== BOTÓN ANCLA ===================== -->
+<button class="to-top" id="toTop" type="button" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+</button>
+
+<script>
+  // Nav: sombra al hacer scroll
+  const nav = document.querySelector('.nav');
+  const toTop = document.getElementById('toTop');
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const navLinks = [...document.querySelectorAll('.nav__link')];
+
+  function onScroll(){
+    const y = window.scrollY;
+    nav.classList.toggle('is-scrolled', y > 8);
+    toTop.classList.toggle('is-visible', y > 875);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Volver arriba
+  toTop.addEventListener('click', () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+
+  // Link activo según sección visible
+  const byId = Object.fromEntries(navLinks.map(l => [l.getAttribute('href').slice(1), l]));
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        navLinks.forEach(l => l.classList.remove('is-active'));
+        const link = byId[e.target.id];
+        if(link) link.classList.add('is-active');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s => spy.observe(s));
+
+  // Reveal al hacer scroll
+  const revealer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('is-in'); revealer.unobserve(e.target); }
+    });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => revealer.observe(el));
+
+  // Tabs de proyectos
+  const tabs = [...document.querySelectorAll('.proj__tab')];
+  const panels = [...document.querySelectorAll('.proj__panel')];
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(p => p.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected','true');
+      const target = document.querySelector(`.proj__panel[data-panel="${tab.dataset.panel}"]`);
+      if(target){
+        target.classList.add('is-active');
+        target.querySelectorAll('.reveal').forEach(el => el.classList.add('is-in'));
+      }
+    });
+  });
+
+  // Menú hamburguesa (mobile/tablet)
+  const burger = document.getElementById('navBurger');
+  const drawer = document.getElementById('navDrawer');
+  const drawerOverlay = document.getElementById('navOverlay');
+  const drawerClose = document.getElementById('navDrawerClose');
+  const drawerLinks = drawer ? [...drawer.querySelectorAll('a[href^="#"]')] : [];
+
+  function openDrawer(){
+    burger.classList.add('is-open');
+    burger.setAttribute('aria-expanded','true');
+    burger.setAttribute('aria-label','Cerrar menú');
+    drawer.classList.add('is-open');
+    drawerOverlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    burger.classList.remove('is-open');
+    burger.setAttribute('aria-expanded','false');
+    burger.setAttribute('aria-label','Abrir menú');
+    drawer.classList.remove('is-open');
+    drawerOverlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  if(burger){
+    burger.addEventListener('click', () => {
+      drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
+    });
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+    drawerLinks.forEach(l => l.addEventListener('click', closeDrawer));
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeDrawer();
+    });
+  }
+
+  // CV dropdown (PDF + Word)
+  const cvCaret = document.getElementById('cvCaret');
+  const cvMenu = document.getElementById('cvMenu');
+  if(cvCaret && cvMenu){
+    cvCaret.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = cvMenu.classList.toggle('is-open');
+      cvCaret.classList.toggle('is-open', isOpen);
+      cvCaret.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e) => {
+      if(!cvMenu.contains(e.target) && e.target !== cvCaret){
+        cvMenu.classList.remove('is-open');
+        cvCaret.classList.remove('is-open');
+        cvCaret.setAttribute('aria-expanded','false');
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){
+        cvMenu.classList.remove('is-open');
+        cvCaret.classList.remove('is-open');
+        cvCaret.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

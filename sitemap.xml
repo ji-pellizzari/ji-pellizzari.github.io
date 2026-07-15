@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/index.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/index-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/index-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/index.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/index-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-app-bice.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-app-bice.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-app-bice-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-app-bice-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-app-bice.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-app-bice-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-bim.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-bim.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-bim-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-bim-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-bim.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-bim-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-envio-bim.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-envio-bim.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-envio-bim-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-envio-bim-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-envio-bim.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-envio-bim-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-retorna.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-retorna.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-retorna-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-retorna-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-retorna.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-retorna-en.html" />
+  </url>
+
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-viaje.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-viaje.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-viaje-en.html" />
+  </url>
+  <url>
+    <loc>https://ji-pellizzari.netlify.app/proyecto-viaje-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ji-pellizzari.netlify.app/proyecto-viaje.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ji-pellizzari.netlify.app/proyecto-viaje-en.html" />
+  </url>
+
+</urlset>

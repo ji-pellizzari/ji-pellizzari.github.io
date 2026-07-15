@@ -1,0 +1,1228 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>App BICE Vida · Product Design — Ji.Pellizzari</title>
+<meta name="description" content="Design of the BICE Vida app's reimbursement flow, reducing steps and making it easier to understand the status of each request." />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ji-pellizzari.netlify.app/proyecto-app-bice-en.html" />
+<meta property="og:title" content="App BICE Vida · Product Design — Ji.Pellizzari" />
+<meta property="og:description" content="Design of the BICE Vida app's reimbursement flow, reducing steps and making it easier to understand the status of each request." />
+<meta property="og:image" content="assets/proyecto-app-bice-vida.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="App BICE Vida · Product Design — Ji.Pellizzari" />
+<meta name="twitter:description" content="Design of the BICE Vida app's reimbursement flow, reducing steps and making it easier to understand the status of each request." />
+<meta name="twitter:image" content="assets/proyecto-app-bice-vida.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opt@0,400;0,500;1,400&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+
+:root{
+  /* Color · Primary Deep Plum */
+  --plum-500:#5B31E6;
+  --plum-600:#4B24D3;
+  --plum-700:#3C1BB0;
+  --plum-400:#8064EC; /* aclarado para ilustración */
+  --plum-300:#B3A4F3; /* fondo ilustración */
+  --plum-100:#ECE8FF;
+
+  /* Color · Secondary Muted Terracotta */
+  --terra-500:#C46A53;
+  --terra-600:#AE5B46;
+  --terra-400:#D08E7C; /* aclarado para ilustración / separadores */
+  --terra-300:#E0B3A6; /* fondo ilustración */
+  --terra-100:#F5E7E2;
+
+  /* Color · Neutral */
+  --gray-950:#201A2B;
+  --gray-900:#2A2436;
+  --gray-800:#3A3446;
+  --gray-700:#514B5E;
+  --gray-600:#686274;
+  --gray-500:#847E94;
+  --gray-400:#A5A0B2;
+  --gray-300:#C8C3D2;
+  --gray-200:#E4E0EA;
+  --gray-100:#F3F1F6;
+  --gray-50:#FBFAFD;
+
+  --bg:var(--gray-50);
+  --surface:#FFFFFF;
+
+  /* Spacing · sistema 8pt */
+  --s-4:4px;   --s-8:8px;   --s-16:16px; --s-24:24px; --s-32:32px;
+  --s-40:40px; --s-48:48px; --s-56:56px; --s-64:64px; --s-80:80px;
+  --s-96:96px; --s-120:120px; --s-160:160px;
+
+  /* Radius */
+  --r-sm:8px; --r-md:16px; --r-lg:24px; --r-full:999px;
+
+  /* Grid */
+  --frame:1440px;
+  --margin:120px;
+  --gutter:32px;
+
+  /* Motion */
+  --dur-1:150ms; --dur-2:250ms; --dur-3:350ms;
+  --ease:cubic-bezier(.4,0,.2,1);
+
+  /* Shadows */
+  --elev-1:0 4px 12px rgba(32,26,43,.05);
+  --elev-2:0 8px 32px rgba(32,26,43,.08);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;}
+/* offset para que las anclas no queden bajo el nav fijo */
+section[id]{scroll-margin-top:88px;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--gray-950);
+  font-family:"Geist",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* Container: 1440 frame, 120 margin */
+.container{
+  max-width:var(--frame);
+  margin-inline:auto;
+  padding-inline:var(--margin);
+}
+
+
+/* ============================================================
+   NAVIGATION  (fija / sticky)
+   ============================================================ */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease),
+             background var(--dur-2) var(--ease);
+}
+/* estado al hacer scroll */
+.nav.is-scrolled{
+  border-bottom-color:var(--gray-200);
+  box-shadow:var(--elev-1);
+}
+.nav .container{
+  padding-block:var(--s-16);
+}
+.nav__inner{
+  display:flex;
+  align-items:center;
+  gap:var(--s-48);
+  min-height:56px;
+}
+.logo{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:24px;
+  letter-spacing:-.01em;
+  color:var(--gray-950);
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:baseline;
+}
+.logo__dot{
+  color:var(--terra-500);
+  font-size:60px;
+  line-height:0;
+  position:relative;
+  top:2px;
+  margin-left:-4px;
+  margin-right:3px;
+}
+
+.nav__menu{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:var(--s-40);
+}
+.nav__link{
+  position:relative;
+  font-size:16px;
+  font-weight:500;
+  color:var(--gray-950);
+  padding-bottom:var(--s-4);
+  transition:color var(--dur-1) var(--ease);
+}
+.nav__link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:100%;
+  height:2px;
+  background:var(--plum-500);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform var(--dur-2) var(--ease);
+}
+.nav__link:hover{color:var(--plum-500);}
+.nav__link.is-active{color:var(--plum-500);}
+.nav__link.is-active::after{transform:scaleX(1);}
+
+.nav__right{
+  display:flex;
+  align-items:center;
+  gap:var(--s-24);
+}
+
+/* Secondary button (outline) */
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-family:"Geist",sans-serif;
+  font-weight:500;
+  font-size:16px;
+  color:var(--plum-500);
+  background:var(--surface);
+  border:1px solid var(--plum-500);
+  border-radius:var(--r-full);
+  padding:var(--s-4) var(--s-24);
+  cursor:pointer;
+  transition:background var(--dur-2) var(--ease),
+             color var(--dur-2) var(--ease),
+             border-color var(--dur-2) var(--ease);
+}
+.btn-secondary:hover{
+  background:var(--plum-100);
+  border-color:var(--plum-600);
+  color:var(--plum-600);
+}
+
+/* ---- CV dropdown (PDF principal + Word secundario) ---- */
+.cv-dropdown{position:relative;display:inline-flex;}
+.cv-dropdown .btn-secondary{border-radius:var(--r-full) 0 0 var(--r-full);border-right:none;}
+.cv-dropdown__caret{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  background:var(--surface);
+  border:1px solid var(--plum-500);
+  border-radius:0 var(--r-full) var(--r-full) 0;
+  color:var(--plum-500);
+  cursor:pointer;
+  transition:background var(--dur-2) var(--ease),color var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease);
+}
+.cv-dropdown__caret:hover{background:var(--plum-100);border-color:var(--plum-600);color:var(--plum-600);}
+.cv-dropdown__caret svg{width:14px;height:14px;transition:transform var(--dur-2) var(--ease);}
+.cv-dropdown__caret.is-open svg{transform:rotate(180deg);}
+.cv-dropdown__menu{
+  display:none;
+  position:absolute;
+  top:calc(100% + var(--s-8));
+  right:0;
+  min-width:160px;
+  background:var(--surface);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-md);
+  box-shadow:var(--elev-2);
+  padding:var(--s-8);
+  z-index:50;
+}
+.cv-dropdown__menu.is-open{display:block;}
+.cv-dropdown__menu a{
+  display:flex;
+  align-items:center;
+  gap:var(--s-8);
+  padding:var(--s-8) var(--s-12);
+  font-size:14px;
+  font-weight:500;
+  color:var(--gray-800);
+  border-radius:var(--r-sm);
+  transition:background var(--dur-1) var(--ease);
+}
+.cv-dropdown__menu a:hover{background:var(--gray-100);}
+.cv-dropdown__menu a svg{width:16px;height:16px;color:var(--gray-400);}
+.btn-secondary svg{width:18px;height:18px;}
+
+.nav__lang{
+  display:flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-size:16px;
+  font-weight:500;
+  padding-left:var(--s-24);
+  border-left:1px solid var(--gray-200);
+}
+.nav__lang a{color:var(--gray-400);transition:color var(--dur-1) var(--ease);}
+.nav__lang a:hover{color:var(--gray-600);}
+.nav__lang a.is-active{color:var(--terra-500);}
+.nav__lang span{color:var(--gray-300);}
+
+/* ---- Menu hamburguesa (mobile/tablet) ---- */
+.nav__burger{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:44px;
+  height:44px;
+  padding:0;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--gray-950);
+}
+.nav__burger svg{width:24px;height:24px;}
+.nav__burger .icon-close{display:none;}
+.nav__burger.is-open .icon-menu{display:none;}
+.nav__burger.is-open .icon-close{display:block;}
+
+.nav__overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(32,26,43,0.4);
+  z-index:190;
+  opacity:0;
+  transition:opacity var(--dur-2) var(--ease);
+}
+.nav__overlay.is-open{display:block;opacity:1;}
+
+.nav__drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:40%;
+  min-width:240px;
+  max-width:420px;
+  background:var(--gray-50);
+  z-index:200;
+  padding:var(--s-32) var(--s-24);
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-32);
+  transform:translateX(100%);
+  transition:transform var(--dur-2) var(--ease);
+  box-shadow:var(--elev-3);
+  overflow-y:auto;
+}
+.nav__drawer.is-open{transform:translateX(0);}
+.nav__drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.nav__drawer-close{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--gray-600);
+}
+.nav__drawer-close svg{width:22px;height:22px;}
+.nav__drawer-menu{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-8);
+}
+.nav__drawer-menu a{
+  font-family:"Newsreader",serif;
+  font-size:22px;
+  font-weight:500;
+  color:var(--gray-950);
+  padding:var(--s-12) 0;
+  border-bottom:1px solid var(--gray-200);
+  transition:color var(--dur-1) var(--ease);
+}
+.nav__drawer-menu a:hover{color:var(--plum-500);}
+.nav__drawer-menu a.is-active{color:var(--plum-500);}
+.nav__drawer-back{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-size:15px;
+  font-weight:500;
+  color:var(--terra-500);
+  padding-top:var(--s-8);
+}
+.nav__drawer-back svg{width:16px;height:16px;}
+.nav__drawer-foot{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-16);
+}
+.nav__drawer-foot .btn-secondary{
+  width:100%;
+  justify-content:center;
+}
+.nav__drawer-lang{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--s-8);
+  font-size:16px;
+  font-weight:500;
+}
+.nav__drawer-lang a{color:var(--gray-400);}
+.nav__drawer-lang a.is-active{color:var(--gray-950);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding-top:var(--s-16);
+  padding-bottom:var(--s-120);
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--gutter);
+  align-items:center;
+}
+
+/* — Left column — */
+.hero__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:80px;          /* Display XL */
+  line-height:1.02;
+  letter-spacing:-.02em;
+  color:var(--gray-950);
+  margin:0;
+}
+.hero__title .accent{color:var(--plum-500);}
+
+.hero__lead{
+  max-width:584px;
+  margin-top:var(--s-32);
+  font-size:24px;          /* Body L */
+  line-height:1.5;
+  color:var(--gray-600);
+}
+
+.hero__chips{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--s-16);
+  margin-bottom:var(--s-24);
+}
+.chip{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--terra-500);
+}
+.chip__sep{color:var(--terra-100);}
+
+.hero__cta{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-16);
+  margin-top:var(--s-24);
+  font-family:"Geist",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:#fff;
+  background:var(--plum-500);
+  border:none;
+  border-radius:var(--r-full);
+  padding:var(--s-16) var(--s-32);
+  cursor:pointer;
+  box-shadow:var(--elev-1);
+  transition:background var(--dur-2) var(--ease),
+             transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease);
+}
+.hero__cta:hover{background:var(--plum-600);box-shadow:var(--elev-2);}
+.hero__cta:active{background:var(--plum-700);transform:translateY(1px);}
+.hero__cta svg{width:20px;height:20px;transition:transform var(--dur-2) var(--ease);}
+.hero__cta:hover svg{transform:translateX(4px);}
+
+/* — Right column: illustration — */
+.hero__art{
+  position:relative;
+  width:100%;
+  aspect-ratio:720/860;
+}
+.hero__art svg{width:100%;height:100%;overflow:visible;}
+
+/* ---- Animación de entrada del contenido del hero ---- */
+.hero__chips,
+.hero__title,
+.hero__lead,
+.hero__cta{
+  opacity:0;
+  animation:hero-in .6s var(--ease) forwards;
+}
+.hero__chips{animation-delay:.1s;}
+.hero__title{animation-delay:.2s;}
+.hero__lead {animation-delay:.32s;}
+.hero__cta  {animation-delay:.44s;}
+
+@keyframes hero-in{
+  from{opacity:0;transform:translateY(12px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+
+/* ---- Animación de entrada de la ilustración ---- */
+/* Trazos: se dibujan solos */
+.art-svg .stroke-anim{
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:draw 1.8s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+/* Grillas guía: fade suave */
+.art-svg .grid{
+  opacity:0;
+  animation:fade-grid .8s var(--ease) forwards;
+  animation-delay:.05s;
+}
+/* Rellenos (puntos, triángulo): aparecen de a poco */
+.art-svg .fade-anim{
+  opacity:0;
+  transform:translateY(8px);
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:fade-up .6s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+/* Nodos: fade suave (sin pop) */
+.art-svg .node{
+  opacity:0;
+  animation:fade-node .6s var(--ease) forwards;
+  animation-delay:var(--d,0s);
+}
+
+@keyframes draw{to{stroke-dashoffset:0;}}
+@keyframes fade-grid{to{opacity:1;}}
+@keyframes fade-up{to{opacity:1;transform:translateY(0);}}
+@keyframes fade-node{to{opacity:1;}}
+
+
+/* ============================================================
+   ELEMENTOS COMPARTIDOS DE SECCIÓN
+   ============================================================ */
+.section{padding-block:var(--s-120);}
+.section--tight{padding-block:var(--s-96);}
+
+.section__head{max-width:920px;margin-bottom:var(--s-80);}
+.section__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:64px;          /* Display L */
+  line-height:1.05;
+  letter-spacing:-.02em;
+  color:var(--gray-950);
+  margin:0;
+}
+.section__title--xl{font-size:80px;}
+.section__intro{
+  margin-top:var(--s-24);
+  max-width:900px;
+  font-size:18px;          /* Body M */
+  line-height:1.6;
+  color:var(--gray-600);
+}
+
+/* Chips reutilizables (misma definición del hero) */
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-16);}
+.chips .chip__sep{color:var(--terra-100);}
+
+/* Botón ghost terracota (secundario) */
+.btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-family:"Geist",sans-serif;
+  font-weight:500;
+  font-size:16px;
+  letter-spacing:.3px;
+  color:var(--terra-500);
+  background:transparent;
+  border:none;
+  padding:var(--s-8) 0;
+  cursor:pointer;
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.btn-ghost svg{width:18px;height:18px;transition:transform var(--dur-2) var(--ease);}
+.btn-ghost:hover{color:var(--terra-600);gap:var(--s-16);}
+.btn-ghost:hover svg{transform:translateX(3px);}
+.btn-ghost:active{color:var(--terra-500);}
+
+/* Botón primario reutilizable (mismo que hero) */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-16);
+  font-family:"Geist",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:#fff;
+  background:var(--plum-500);
+  border:none;
+  border-radius:var(--r-full);
+  padding:var(--s-16) var(--s-32);
+  cursor:pointer;
+  box-shadow:var(--elev-1);
+  transition:background var(--dur-2) var(--ease),
+             transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease);
+}
+.btn-primary svg{width:20px;height:20px;transition:transform var(--dur-2) var(--ease);}
+.btn-primary:hover{background:var(--plum-600);box-shadow:var(--elev-2);}
+.btn-primary:hover svg{transform:translateX(4px);}
+.btn-primary:active{background:var(--plum-700);transform:translateY(1px);}
+
+
+
+/* Cards de proyecto (reusadas en carrusel) */
+.proj-card{
+  display:flex;
+  flex-direction:column;
+  background:var(--surface);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:var(--elev-1);
+  transition:transform var(--dur-2) var(--ease),
+             box-shadow var(--dur-2) var(--ease),
+             border-color var(--dur-2) var(--ease);
+}
+.proj-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--elev-2);
+  border-color:var(--plum-400);
+}
+.proj-card:active{transform:translateY(-2px);}
+.proj-card__media{
+  aspect-ratio:4/3;
+  background:var(--gray-100);
+  overflow:hidden;
+}
+.proj-card__media img{width:100%;height:100%;object-fit:cover;display:block;}
+.proj-card__body{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:var(--s-32);
+}
+.proj-card__eyebrow{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--terra-500);
+  margin:0 0 var(--s-16);
+}
+.proj-card__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:32px;
+  line-height:1.1;
+  color:var(--gray-950);
+  margin:0 0 var(--s-16);
+}
+.proj-card__desc{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0 0 var(--s-24);
+  flex:1;
+}
+.proj-card__cta{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-weight:500;
+  font-size:16px;
+  color:var(--terra-500);
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.proj-card__cta svg{width:18px;height:18px;transition:transform var(--dur-2) var(--ease);}
+.proj-card:hover .proj-card__cta{color:var(--terra-600);gap:var(--s-16);}
+.proj-card:hover .proj-card__cta svg{transform:translateX(3px);}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{
+  background:var(--plum-100);
+  padding-block:var(--s-64);
+}
+.footer__inner{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:var(--s-64);
+  align-items:start;
+}
+.footer__logo{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:24px;
+  color:var(--gray-950);
+  display:inline-flex;
+  align-items:baseline;
+  margin-bottom:var(--s-16);
+}
+.footer__logo .logo__dot{font-size:56px;margin-left:-4px;margin-right:3px;}
+.footer__role{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0;
+}
+.footer__copy{
+  font-size:14px;
+  color:var(--gray-600);
+  margin:var(--s-24) 0 0;
+}
+.footer__nav{display:flex;flex-direction:column;gap:var(--s-16);}
+.footer__nav a{
+  font-size:16px;
+  color:var(--gray-700);
+  transition:color var(--dur-1) var(--ease);
+}
+.footer__nav a:hover{color:var(--plum-500);}
+.footer__social{display:flex;gap:var(--s-16);}
+.footer__social a{
+  width:44px;height:44px;
+  border-radius:var(--r-full);
+  display:grid;place-items:center;
+  color:var(--plum-600);
+  background:var(--surface);
+  transition:background var(--dur-2) var(--ease),color var(--dur-2) var(--ease);
+}
+.footer__social a:hover{background:var(--plum-500);color:#fff;}
+.footer__social svg{width:20px;height:20px;}
+
+/* ============================================================
+   BOTÓN ANCLA · volver arriba
+   ============================================================ */
+.to-top{
+  position:fixed;
+  right:var(--s-40);
+  bottom:var(--s-40);
+  z-index:90;
+  width:52px;height:52px;
+  border-radius:var(--r-full);
+  background:var(--plum-500);
+  color:#fff;
+  border:none;
+  display:grid;place-items:center;
+  cursor:pointer;
+  box-shadow:var(--elev-2);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(16px);
+  transition:opacity var(--dur-3) var(--ease),
+             transform var(--dur-3) var(--ease),
+             visibility var(--dur-3) var(--ease),
+             background var(--dur-2) var(--ease);
+}
+.to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0);}
+.to-top:hover{background:var(--plum-600);}
+.to-top:active{background:var(--plum-700);}
+.to-top svg{width:22px;height:22px;}
+
+/* ============================================================
+   FOOTER / SECCIONES · REVEAL AL HACER SCROLL
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+.reveal.is-in{opacity:1;transform:translateY(0);}
+
+
+/* ============================================================
+   FOCUS / MOTION
+   ============================================================ */
+:focus-visible{
+  outline:2px solid var(--plum-500);
+  outline-offset:3px;
+  border-radius:var(--r-sm);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  /* Contenido del hero visible sin animar */
+  .hero__chips,.hero__title,.hero__lead,.hero__cta{opacity:1;transform:none;}
+  /* Reveal visible sin animar */
+  .reveal{opacity:1;transform:none;}
+  /* Ilustración visible en su estado final, sin animar */
+  .art-svg .stroke-anim{stroke-dashoffset:0;}
+  .art-svg .grid{opacity:1;}
+  .art-svg .fade-anim{opacity:1;transform:none;}
+  .art-svg .node{opacity:1;transform:none;}
+}
+
+
+
+/* ============================================================
+   PÁGINA DE PROYECTO
+   ============================================================ */
+/* Volver arriba en el nav */
+.nav__back{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-size:16px;
+  font-weight:500;
+  color:var(--terra-500);
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.nav__back svg{width:18px;height:18px;transition:transform var(--dur-2) var(--ease);}
+.nav__back:hover{color:var(--terra-600);gap:var(--s-16);}
+.nav__back:hover svg{transform:translateX(-3px);}
+
+.project{padding-block:var(--s-56) var(--s-120);}
+.project__layout{
+  display:grid;
+  grid-template-columns:280px minmax(0,1fr);
+  gap:var(--s-80);
+  align-items:start;
+}
+
+/* ---- Sidebar fijo ---- */
+.project__aside{
+  position:sticky;
+  top:96px;
+  align-self:start;
+}
+.aside__eyebrow{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--plum-500);
+  margin:0 0 var(--s-8);
+}
+.aside__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:40px;
+  line-height:1.05;
+  letter-spacing:-.02em;
+  color:var(--gray-950);
+  margin:0 0 var(--s-16);
+}
+.aside__desc{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0 0 var(--s-24);
+}
+.aside__chips{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-8) var(--s-12,12px);margin-bottom:var(--s-32);}
+.aside__chips .chip{display:inline-flex;align-items:center;}
+.aside__chips .chip:not(:last-child)::after{
+  content:"";
+  display:inline-block;
+  width:3px;height:3px;
+  border-radius:var(--r-full);
+  background:var(--terra-300);
+  margin-left:var(--s-12,12px);
+  margin-left:12px;
+}
+.aside__meta{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-16);
+  padding-bottom:var(--s-32);
+  margin-bottom:var(--s-32);
+  border-bottom:1px solid var(--gray-200);
+}
+.aside__meta-item{
+  display:flex;
+  align-items:center;
+  gap:var(--s-12,12px);
+  gap:var(--s-16);
+  font-size:14px;
+  color:var(--gray-700);
+}
+.aside__meta-item svg{width:18px;height:18px;color:var(--gray-500);flex:none;}
+.aside__meta-item a{color:var(--terra-500);}
+.aside__meta-item a:hover{color:var(--terra-600);}
+
+/* nav de secciones */
+.aside__nav{display:flex;flex-direction:column;gap:2px;}
+.aside__nav a{
+  display:flex;
+  align-items:center;
+  gap:var(--s-16);
+  padding:var(--s-8) 0;
+  font-size:15px;
+  color:var(--gray-500);
+  border-left:2px solid var(--gray-200);
+  padding-left:var(--s-16);
+  transition:color var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease);
+}
+.aside__nav a .num{font-variant-numeric:tabular-nums;font-size:13px;color:var(--gray-400);}
+.aside__nav a:hover{color:var(--gray-800);}
+.aside__nav a.is-active{color:var(--plum-500);border-left-color:var(--plum-500);}
+.aside__nav a.is-active .num{color:var(--plum-500);}
+
+.aside__back{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s-8);
+  font-size:14px;
+  font-weight:500;
+  color:var(--terra-500);
+  margin-top:var(--s-24);
+  padding-top:var(--s-24);
+  border-top:1px solid var(--gray-200);
+  transition:color var(--dur-2) var(--ease),gap var(--dur-2) var(--ease);
+}
+.aside__back svg{width:16px;height:16px;transition:transform var(--dur-2) var(--ease);}
+.aside__back:hover{color:var(--terra-600);gap:var(--s-16);}
+.aside__back:hover svg{transform:translateX(-3px);}
+
+/* ---- Contenido ---- */
+.project__hero{
+  aspect-ratio:1600/820;
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  background:var(--plum-100);
+  margin-bottom:var(--s-96);
+}
+.project__hero img{width:100%;height:100%;object-fit:cover;display:block;}
+
+.pblock{
+  padding-top:var(--s-32);
+  padding-bottom:var(--s-32);
+  margin-bottom:0;
+  border-bottom:1px solid var(--gray-200);
+  scroll-margin-top:96px;
+}
+.pblock:first-of-type{padding-top:0;}
+.pblock:last-of-type{padding-bottom:0;border-bottom:none;}
+.pblock__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:32px;
+  line-height:1.1;
+  letter-spacing:-.01em;
+  color:var(--gray-950);
+  margin:0 0 var(--s-24);
+}
+.pblock__text{
+  font-size:18px;
+  line-height:1.7;
+  color:var(--gray-700);
+  max-width:70ch;
+  margin:0 0 var(--s-16);
+}
+.pblock__text a{color:var(--plum-500);}
+.pblock__text strong{color:var(--gray-950);font-weight:600;}
+
+/* grid de "cards" de concepto (desafío, mi rol) */
+.pcards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:var(--s-40) var(--gutter);
+  margin-top:var(--s-48);
+}
+.pcards--4{grid-template-columns:repeat(4,1fr);}
+.pcard__icon{
+  display:grid;place-items:center;
+  width:48px;height:48px;
+  border-radius:var(--r-md);
+  background:var(--plum-100);
+  color:var(--plum-600);
+  margin-bottom:var(--s-16);
+}
+.pcard__icon svg{width:24px;height:24px;}
+.pcard__title{
+  font-size:18px;
+  font-weight:600;
+  color:var(--gray-950);
+  margin:0 0 var(--s-8);
+}
+.pcard__desc{
+  font-size:15px;
+  line-height:1.6;
+  color:var(--gray-600);
+  margin:0;
+}
+
+/* proceso: pasos horizontales conectados */
+.pprocess{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:var(--gutter);
+  margin-top:var(--s-48);
+  position:relative;
+}
+.pprocess::before{
+  content:"";
+  position:absolute;
+  top:28px;left:8%;right:8%;
+  height:2px;
+  background:var(--plum-100);
+}
+.pstep{text-align:center;position:relative;}
+.pstep__dot{
+  width:56px;height:56px;
+  margin:0 auto var(--s-16);
+  border-radius:var(--r-full);
+  background:var(--plum-500);
+  color:#fff;
+  display:grid;place-items:center;
+  position:relative;
+  z-index:1;
+}
+.pstep__dot svg{width:24px;height:24px;}
+.pstep__title{font-size:16px;font-weight:600;color:var(--gray-950);margin:0 0 var(--s-8);}
+.pstep__desc{font-size:14px;line-height:1.55;color:var(--gray-600);margin:0;}
+
+/* solución: galería */
+.pgallery{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s-40);
+  margin-top:var(--s-48);
+}
+.pgallery figure{margin:0;}
+.pgallery img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:var(--r-lg);
+  border:1px solid var(--gray-200);
+  background:var(--gray-100);
+}
+
+/* impacto: métricas */
+.pmetrics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--gutter);
+  margin-top:var(--s-48);
+}
+.pmetric{
+  padding:var(--s-32);
+  background:var(--surface);
+  border:1px solid var(--gray-200);
+  border-radius:var(--r-lg);
+}
+.pmetric__icon{color:var(--plum-500);margin-bottom:var(--s-16);}
+.pmetric__icon svg{width:24px;height:24px;}
+.pmetric__value{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:40px;
+  line-height:1;
+  color:var(--gray-950);
+  margin:0 0 var(--s-8);
+}
+.pmetric__label{font-size:14px;line-height:1.5;color:var(--gray-600);margin:0;}
+
+/* aprendizajes */
+.plearn{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--s-32) var(--gutter);
+  margin-top:var(--s-48);
+}
+.plearn__item{
+  padding-left:var(--s-24);
+  border-left:2px solid var(--terra-100);
+}
+.plearn__item p{
+  font-family:"Newsreader",serif;
+  font-size:22px;
+  line-height:1.3;
+  color:var(--gray-800);
+  margin:0;
+}
+
+/* ---- Cierre: volver + más proyectos ---- */
+.pmore{
+  border-top:1px solid var(--gray-200);
+  padding-top:var(--s-80);
+  margin-top:var(--s-120);
+}
+.pmore__head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:var(--s-24);
+  margin-bottom:var(--s-40);
+}
+.pmore__title{
+  font-family:"Newsreader",serif;
+  font-weight:500;
+  font-size:32px;
+  color:var(--gray-950);
+  margin:0;
+}
+.pcarousel{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(340px,1fr);
+  gap:var(--gutter);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:var(--s-16);
+  scrollbar-width:thin;
+}
+.pcarousel .proj-card{scroll-snap-align:start;}
+.pcarousel::-webkit-scrollbar{height:8px;}
+.pcarousel::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:var(--r-full);}
+
+.pback{
+  display:flex;
+  justify-content:center;
+  margin-top:var(--s-80);
+}
+
+/* Responsive */
+@media (max-width:1023px){
+  :root{--margin:48px;}
+  .nav__menu{display:none;}
+  .nav__right .btn-secondary,
+  .nav__right .nav__lang{display:none;}
+  .nav__burger{display:flex;}
+  .project__layout{grid-template-columns:minmax(0,1fr);gap:var(--s-48);}
+  .project__aside{position:static;top:auto;}
+  .aside__nav{display:none;}
+  .pcards,.pcards--4{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .pprocess{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-40) var(--gutter);}
+  .pprocess::before{display:none;}
+  .pmetrics{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:767px){
+  :root{--margin:24px;}
+  .pcards,.pcards--4,.pprocess,.pmetrics,.plearn{grid-template-columns:minmax(0,1fr);}
+  .aside__title{font-size:32px;}
+  .pblock__title{font-size:28px;}
+}
+
+
+</style></head><body>
+<header class="nav"><div class="container"><div class="nav__inner">
+<a class="logo" href="index-en.html" aria-label="Ji.Pellizzari, home">Ji<span class="logo__dot">.</span>Pellizzari</a>
+<nav class="nav__menu" aria-label="Main">
+<a class="nav__link" href="index-en.html#experiencia">Experience</a><a class="nav__link" href="index-en.html#proyectos">Projects</a>
+<a class="nav__link" href="index-en.html#como-trabajo">How I work</a><a class="nav__link" href="index-en.html#contacto">Contact</a></nav>
+<div class="nav__right"><div class="cv-dropdown"><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf">CV <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><button class="cv-dropdown__caret" id="cvCaret" type="button" aria-label="Other CV formats" aria-expanded="false" aria-controls="cvMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="cv-dropdown__menu" id="cvMenu"><a href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>CV as PDF</a><a href="assets/CV_Javiera_Pellizzari_EN.docx" download="Javiera Pellizzari CV - Product Designer.docx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>CV as Word</a></div></div>
+<div class="nav__lang"><a href="#" class="is-active" aria-current="true" aria-label="English">EN</a><span>|</span><a href="proyecto-app-bice.html" aria-label="Español">ES</a></div>
+<button class="nav__burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div></div></header>
+<div class="nav__overlay" id="navOverlay"></div><aside class="nav__drawer" id="navDrawer" aria-label="Menú de navegación"><div class="nav__drawer-head"><button class="nav__drawer-close" id="navDrawerClose" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><nav class="nav__drawer-menu" aria-label="Secciones"><a href="#resumen">Summary</a><a href="#desafio">The challenge</a><a href="#mi-rol">My role</a><a href="#proceso">Process</a><a href="#solucion">Solution</a></nav><a href="index-en.html#proyectos" class="nav__drawer-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>Back to projects</a><div class="nav__drawer-foot"><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf">CV as PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.docx" download="Javiera Pellizzari CV - Product Designer.docx" style="background:none;">CV as Word<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><div class="nav__drawer-lang"><a href="#" class="is-active" aria-current="true" aria-label="English">EN</a><span>|</span><a href="proyecto-app-bice.html" aria-label="Español">ES</a></div></div></aside>
+<main class="project"><div class="container">
+<a class="nav__back" href="index-en.html#proyectos" style="margin-bottom:var(--s-40);display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg> Back to projects</a>
+<div class="project__layout" style="margin-top:var(--s-32)">
+<aside class="project__aside">
+<p class="aside__eyebrow">Product Design</p><h1 class="aside__title">App<br>BICE Vida</h1>
+<p class="aside__desc">Design proposal for the BICE Vida app focused on a complete redesign, covering onboarding, login, home, and key sections.</p>
+<div class="aside__chips chips"><span class="chip">Product Design</span><span class="chip">Mobile</span><span class="chip">UX/UI</span><span class="chip">Onboarding</span><span class="chip">Design Sprint</span></div>
+<div class="aside__meta"><div class="aside__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>2024</div><div class="aside__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Design, Development, and Business team.</div><div class="aside__meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>iOS, Android</div></div>
+<nav class="aside__nav" aria-label="Project sections"><a href="#resumen" class="is-active">Summary</a><a href="#desafio">The challenge</a><a href="#mi-rol">My role</a><a href="#proceso">Process</a><a href="#solucion">Solution</a></nav>
+        <a href="index-en.html#proyectos" class="aside__back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>Back to projects</a>
+</aside>
+<div class="project__content">
+<div class="project__hero"><img src="assets/hero-app-bice.jpg" alt="BICE Vida app screens"></div>
+<section class="pblock" id="resumen"><h2 class="pblock__title">Summary</h2><p class="pblock__text">This project involved a complete overhaul of the company's app, aligning its look and feel with the current Design System and its digital products' purchase processes to strengthen the app's position against competitors.</p></section><section class="pblock" id="desafio"><h2 class="pblock__title">The challenge</h2><p class="pblock__text">Drive greater use of the BICE Vida app among customers with health insurance, updating the app's visuals, improving the overall experience, and streamlining the reimbursement process.</p><div class="pcards"><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9z"/></svg></span><h3 class="pcard__title">Design Sprint to align</h3><p class="pcard__desc">We proposed a Design Sprint to define the foundations of the new app along with the look and feel to be updated.</p></div><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3 class="pcard__title">Lack of visibility</h3><p class="pcard__desc">Users had no way of knowing what stage their reimbursement was at, since the app didn't let them track its progress.</p></div><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></span><h3 class="pcard__title">High operational load</h3><p class="pcard__desc">Many repetitive calls to the call center from users with questions about the reimbursement process.</p></div></div></section><section class="pblock" id="mi-rol"><h2 class="pblock__title">My role</h2><p class="pblock__text">Actively participate in the design process through the Design Sprint, acting as UI Lead for the team, supporting the experience designers, and proposing the interface design direction for the app.</p><div class="pcards pcards--4"><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><h3 class="pcard__title">Research</h3><p class="pcard__desc">Benchmarking of similar apps, workshops with the design team to align expectations on look and feel.</p></div><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span><h3 class="pcard__title">UX / UI Design</h3><p class="pcard__desc">Design proposals, collaborative work with the designers, defining architecture and scope by sprint.</p></div><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span><h3 class="pcard__title">Prototyping</h3><p class="pcard__desc">High-fidelity prototypes for user testing.</p></div><div class="pcard"><span class="pcard__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span><h3 class="pcard__title">Collaboration and handoff</h3><p class="pcard__desc">Ongoing work with Product, Development, and Business. Presenting proposals and delivering handoff to development each sprint.</p></div></div></section><section class="pblock" id="proceso"><h2 class="pblock__title">Process</h2><p class="pblock__text">We worked through the Design Sprint with the team to understand real needs, define solutions suited to an MVP, review design proposals, and finally present to the business.</p><div class="pprocess"><div class="pstep"><span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><h3 class="pstep__title">Discovery</h3><p class="pstep__desc">Understanding business needs and users' real pain points.</p></div><div class="pstep"><span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></span><h3 class="pstep__title">Definition</h3><p class="pstep__desc">Mapping the current app flow and defining tasks per sprint.</p></div><div class="pstep"><span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></span><h3 class="pstep__title">Design</h3><p class="pstep__desc">Information architecture, wireframes, and interface design proposals.</p></div><div class="pstep"><span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></span><h3 class="pstep__title">Validation</h3><p class="pstep__desc">Usability testing and validation with real users.</p></div><div class="pstep"><span class="pstep__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/></svg></span><h3 class="pstep__title">Delivery</h3><p class="pstep__desc">Figma handoff to development for the app's first sprints.</p></div></div></section><section class="pblock" id="solucion"><h2 class="pblock__title">Solution</h2><p class="pblock__text">Final design proposals for each section of the app's main menu, focused on users' immediate needs (requesting reimbursement, viewing insurance policies, checking agent schedules, etc.).</p><div class="pgallery"><figure><img src="assets/appbice-sol-1.jpg" alt="Onboarding"></figure><figure><img src="assets/appbice-sol-2.jpg" alt="Main menu"></figure><figure><img src="assets/appbice-sol-3.jpg" alt="Reimbursement request"></figure><figure><img src="assets/appbice-sol-4.jpg" alt="Policies"></figure></div></section>
+<div class="pmore"><div class="pmore__head"><h2 class="pmore__title">More projects</h2>
+<a class="btn-ghost" href="index-en.html#proyectos">View all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></div>
+<div class="pcarousel"><a class="proj-card" href="proyecto-envio-bim-en.html" aria-label="View project: Money Transfer · BIM App"><div class="proj-card__media"><img src="assets/proyecto-envio-dinero-bim.jpg" alt="Money Transfer · BIM App"></div>
+<div class="proj-card__body"><p class="proj-card__eyebrow">Product Design</p><h3 class="proj-card__title">Money Transfer · BIM App</h3>
+<p class="proj-card__desc">Money transfer flow for the BIM app, from wireframes to high-fidelity design alongside the Design System.</p><span class="proj-card__cta">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></div></a><a class="proj-card" href="proyecto-viaje-en.html" aria-label="View project: Viaje Protegido"><div class="proj-card__media"><img src="assets/proyecto-viaje-protegido.jpg" alt="Viaje Protegido"></div>
+<div class="proj-card__body"><p class="proj-card__eyebrow">Product Design</p><h3 class="proj-card__title">Viaje Protegido</h3>
+<p class="proj-card__desc">I designed the complete flow for purchasing travel insurance, from quote to confirmation.</p><span class="proj-card__cta">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></div></a><a class="proj-card" href="proyecto-en.html" aria-label="View project: BICE Vida"><div class="proj-card__media"><img src="assets/proyecto-bice-vida.jpg" alt="BICE Vida"></div>
+<div class="proj-card__body"><p class="proj-card__eyebrow">Design System</p><h3 class="proj-card__title">BICE Vida</h3>
+<p class="proj-card__desc">I led the evolution of the corporate Design System, defining components, documentation, processes, and collaboration between Design and Development.</p><span class="proj-card__cta">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></div></a></div>
+<div class="pback"><a class="btn-ghost" href="index-en.html#proyectos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg> Back to projects</a></div></div>
+</div></div></div></main>
+<footer class="footer"><div class="container"><div class="footer__inner">
+<div><span class="footer__logo">Ji<span class="logo__dot">.</span>Pellizzari</span>
+<p class="footer__role">Design Systems Manager<br>Product Designer</p>
+<p class="footer__copy">© 2026 All rights reserved.</p></div>
+<nav class="footer__nav" aria-label="Footer">
+<a href="index-en.html#experiencia">Experience</a><a href="index-en.html#proyectos">Projects</a>
+<a href="index-en.html#como-trabajo">How I work</a><a href="index-en.html#contacto">Contact</a></nav>
+<div class="footer__social">
+<a href="https://linkedin.com/in/javierapellizzari" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4-.02 2 2 0 0 1 4 .02zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/></svg></a>
+<a href="mailto:javiera.pellizzari@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></div>
+</div></div></footer>
+<button class="to-top" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+<script>
+const nav=document.querySelector('.nav');const toTop=document.getElementById('toTop');
+function onScroll(){const y=window.scrollY;nav.classList.toggle('is-scrolled',y>8);toTop.classList.toggle('is-visible',y>875);}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+toTop.addEventListener('click',()=>{const r=window.matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'});});
+const links=[...document.querySelectorAll('.aside__nav a')];
+const byId=Object.fromEntries(links.map(l=>[l.getAttribute('href').slice(1),l]));
+const secs=[...document.querySelectorAll('.pblock[id]')];
+const spy=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){links.forEach(l=>l.classList.remove('is-active'));const k=byId[x.target.id];if(k)k.classList.add('is-active');}});},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>spy.observe(s));
+
+// Menu hamburguesa (mobile/tablet)
+const burger = document.getElementById('navBurger');
+const drawer = document.getElementById('navDrawer');
+const drawerOverlay = document.getElementById('navOverlay');
+const drawerClose = document.getElementById('navDrawerClose');
+const drawerLinks = drawer ? [...drawer.querySelectorAll('a[href^="#"]')] : [];
+function openDrawer(){burger.classList.add('is-open');burger.setAttribute('aria-expanded','true');drawer.classList.add('is-open');drawerOverlay.classList.add('is-open');document.body.style.overflow='hidden';}
+function closeDrawer(){burger.classList.remove('is-open');burger.setAttribute('aria-expanded','false');drawer.classList.remove('is-open');drawerOverlay.classList.remove('is-open');document.body.style.overflow='';}
+if(burger){
+  burger.addEventListener('click',()=>{drawer.classList.contains('is-open')?closeDrawer():openDrawer();});
+  drawerClose.addEventListener('click',closeDrawer);
+  drawerOverlay.addEventListener('click',closeDrawer);
+  drawerLinks.forEach(l=>l.addEventListener('click',closeDrawer));
+  window.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeDrawer();});
+}
+
+// CV dropdown (PDF + Word)
+const cvCaret = document.getElementById('cvCaret');
+const cvMenu = document.getElementById('cvMenu');
+if(cvCaret && cvMenu){
+  cvCaret.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = cvMenu.classList.toggle('is-open');
+    cvCaret.classList.toggle('is-open', isOpen);
+    cvCaret.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if(!cvMenu.contains(e.target) && e.target !== cvCaret){
+      cvMenu.classList.remove('is-open');
+      cvCaret.classList.remove('is-open');
+      cvCaret.setAttribute('aria-expanded','false');
+    }
+  });
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      cvMenu.classList.remove('is-open');
+      cvCaret.classList.remove('is-open');
+      cvCaret.setAttribute('aria-expanded','false');
+    }
+  });
+}
+</script>
+</body></html>
