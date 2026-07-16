@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="favicon.ico" sizes="any" /><link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" /><link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16" /><link rel="apple-touch-icon" href="apple-touch-icon.png" /><link rel="icon" href="assets/favicon-192.png" type="image/png" sizes="192x192" />
 <title>BIM Money Transfer · Product Design — Ji.Pellizzari</title>
 <meta name="description" content="Money transfer flow for the BIM app, from wireframes to high-fidelity design alongside the Design System." />
 
@@ -381,6 +382,11 @@ img{display:block;max-width:100%;}
   gap:var(--s-8);
   font-size:16px;
   font-weight:500;
+}
+.nav__drawer-lang--top{
+  padding-bottom:var(--s-16);
+  margin-bottom:var(--s-8);
+  border-bottom:1px solid var(--gray-200);
 }
 .nav__drawer-lang a{color:var(--gray-400);}
 .nav__drawer-lang a.is-active{color:var(--gray-950);}
@@ -1016,7 +1022,52 @@ img{display:block;max-width:100%;}
   border-radius:var(--r-lg);
   border:1px solid var(--gray-200);
   background:var(--gray-100);
+  cursor:zoom-in;
 }
+.project__hero img{cursor:zoom-in;}
+
+/* ---- Lightbox ---- */
+.lightbox{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:rgba(20,16,28,0.92);
+  align-items:center;
+  justify-content:center;
+  padding:var(--s-24);
+  opacity:0;
+  transition:opacity var(--dur-2) var(--ease);
+}
+.lightbox.is-open{display:flex;opacity:1;}
+.lightbox img{
+  max-width:100%;
+  max-height:90vh;
+  width:auto;
+  height:auto;
+  border-radius:var(--r-md);
+  box-shadow:var(--elev-3);
+  display:block;
+}
+.lightbox__close{
+  position:fixed;
+  top:var(--s-24);
+  right:var(--s-24);
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.12);
+  border:none;
+  border-radius:var(--r-full);
+  color:#fff;
+  cursor:pointer;
+  transition:background var(--dur-2) var(--ease);
+  z-index:301;
+}
+.lightbox__close:hover{background:rgba(255,255,255,0.22);}
+.lightbox__close svg{width:24px;height:24px;}
 
 /* impacto: métricas */
 .pmetrics{
@@ -1106,12 +1157,13 @@ img{display:block;max-width:100%;}
 @media (max-width:1023px){
   :root{--margin:48px;}
   .nav__menu{display:none;}
-  .nav__right .btn-secondary,
+  .nav__right{margin-left:auto;}
+  .nav__right .cv-dropdown,
   .nav__right .nav__lang{display:none;}
   .nav__burger{display:flex;}
   .project__layout{grid-template-columns:minmax(0,1fr);gap:var(--s-48);}
   .project__aside{position:static;top:auto;}
-  .aside__nav{display:none;}
+  .aside__nav{display:none;} .aside__back{border-top:none;margin-top:0;padding-top:var(--s-8);}
   .pcards,.pcards--4{grid-template-columns:repeat(2,minmax(0,1fr));}
   .pprocess{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-40) var(--gutter);}
   .pprocess::before{display:none;}
@@ -1122,6 +1174,12 @@ img{display:block;max-width:100%;}
   .pcards,.pcards--4,.pprocess,.pmetrics,.plearn{grid-template-columns:minmax(0,1fr);}
   .aside__title{font-size:32px;}
   .pblock__title{font-size:28px;}
+  .footer__inner{grid-template-columns:minmax(0,1fr);gap:var(--s-40);}
+  .footer__social{margin-top:var(--s-8);}
+  .project__hero{margin-bottom:var(--s-48);}
+  .pmore{padding-top:var(--s-40);margin-top:var(--s-56);}
+  .pblock{padding-top:var(--s-24);padding-bottom:var(--s-24);}
+  .pcarousel{grid-auto-columns:82%;gap:14px;}
 }
 
 
@@ -1134,7 +1192,7 @@ img{display:block;max-width:100%;}
 <div class="nav__right"><div class="cv-dropdown"><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf">CV <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><button class="cv-dropdown__caret" id="cvCaret" type="button" aria-label="Other CV formats" aria-expanded="false" aria-controls="cvMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="cv-dropdown__menu" id="cvMenu"><a href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>CV as PDF</a><a href="assets/CV_Javiera_Pellizzari_EN.docx" download="Javiera Pellizzari CV - Product Designer.docx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></svg>CV as Word</a></div></div>
 <div class="nav__lang"><a href="#" class="is-active" aria-current="true" aria-label="English">EN</a><span>|</span><a href="proyecto-envio-bim.html" aria-label="Español">ES</a></div>
 <button class="nav__burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div></div></header>
-<div class="nav__overlay" id="navOverlay"></div><aside class="nav__drawer" id="navDrawer" aria-label="Menú de navegación"><div class="nav__drawer-head"><button class="nav__drawer-close" id="navDrawerClose" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><nav class="nav__drawer-menu" aria-label="Secciones"><a href="#resumen">Summary</a><a href="#desafio">The challenge</a><a href="#mi-rol">My role</a><a href="#proceso">Process</a><a href="#solucion">Solution</a></nav><a href="index-en.html#proyectos" class="nav__drawer-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>Back to projects</a><div class="nav__drawer-foot"><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf">CV as PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.docx" download="Javiera Pellizzari CV - Product Designer.docx" style="background:none;">CV as Word<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><div class="nav__drawer-lang"><a href="#" class="is-active" aria-current="true" aria-label="English">EN</a><span>|</span><a href="proyecto-envio-bim.html" aria-label="Español">ES</a></div></div></aside>
+<div class="nav__overlay" id="navOverlay"></div><aside class="nav__drawer" id="navDrawer" aria-label="Menú de navegación"><div class="nav__drawer-head"><button class="nav__drawer-close" id="navDrawerClose" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div class="nav__drawer-lang nav__drawer-lang--top"><a href="#" class="is-active" aria-current="true" aria-label="English">EN</a><span>|</span><a href="proyecto-envio-bim.html" aria-label="Español">ES</a></div><nav class="nav__drawer-menu" aria-label="Secciones"><a href="#resumen">Summary</a><a href="#desafio">The challenge</a><a href="#mi-rol">My role</a><a href="#proceso">Process</a><a href="#solucion">Solution</a></nav><a href="index-en.html#proyectos" class="nav__drawer-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg>Back to projects</a><div class="nav__drawer-foot"><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.pdf" download="Javiera Pellizzari CV - Product Designer.pdf">CV as PDF<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a><a class="btn-secondary" href="assets/CV_Javiera_Pellizzari_EN.docx" download="Javiera Pellizzari CV - Product Designer.docx" style="background:none;">CV as Word<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a></div></aside>
 <main class="project"><div class="container">
 <a class="nav__back" href="index-en.html#proyectos" style="margin-bottom:var(--s-40);display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></svg> Back to projects</a>
 <div class="project__layout" style="margin-top:var(--s-32)">
@@ -1172,6 +1230,7 @@ img{display:block;max-width:100%;}
 <a href="mailto:javiera.pellizzari@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></div>
 </div></div></footer>
 <button class="to-top" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image"><button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button><img id="lightboxImg" src="" alt=""></div>
 <script>
 const nav=document.querySelector('.nav');const toTop=document.getElementById('toTop');
 function onScroll(){const y=window.scrollY;nav.classList.toggle('is-scrolled',y>8);toTop.classList.toggle('is-visible',y>875);}
@@ -1224,5 +1283,33 @@ if(cvCaret && cvMenu){
     }
   });
 }
+
+// Lightbox de imágenes
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+const zoomableImgs = [...document.querySelectorAll('.pgallery img, .project__hero img')];
+
+function openLightbox(src, alt){
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || '';
+  lightbox.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  lightbox.classList.remove('is-open');
+  document.body.style.overflow = '';
+  lightboxImg.src = '';
+}
+zoomableImgs.forEach(img => {
+  img.addEventListener('click', () => openLightbox(img.currentSrc || img.src, img.alt));
+});
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => {
+  if(e.target === lightbox) closeLightbox();
+});
+window.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+});
 </script>
 </body></html>
